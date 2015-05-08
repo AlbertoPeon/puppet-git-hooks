@@ -82,18 +82,18 @@ for changedfile in `git diff --cached --name-only --diff-filter=ACM`; do
         echo "ruby not installed. Skipping erb/yaml/json checks..."
     fi
 
-    #puppet manifest styleguide compliance
-    if type puppet-lint >/dev/null 2>&1; then
-        if [ $(echo $changedfile | grep -q '\.*.pp$' ; echo $?) -eq 0 ]; then
-            ${subhook_root}/puppet_lint_checks.sh $changedfile
-            RC=$?
-            if [ "$RC" -ne 0 ]; then
-                failures=`expr $failures + 1`
-            fi
-        fi
-    else
-        echo "puppet-lint not installed. Skipping puppet-lint tests..."
-    fi
+    # #puppet manifest styleguide compliance
+    # if type puppet-lint >/dev/null 2>&1; then
+    #     if [ $(echo $changedfile | grep -q '\.*.pp$' ; echo $?) -eq 0 ]; then
+    #         ${subhook_root}/puppet_lint_checks.sh $changedfile
+    #         RC=$?
+    #         if [ "$RC" -ne 0 ]; then
+    #             failures=`expr $failures + 1`
+    #         fi
+    #     fi
+    # else
+    #     echo "puppet-lint not installed. Skipping puppet-lint tests..."
+    # fi
 done
 IFS=$SAVEIFS
 
